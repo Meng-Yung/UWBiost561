@@ -1524,7 +1524,23 @@ called <code>DESCRIPTION</code> in your <code>UWBiost561</code> package. It shou
 <p><u><strong>Question 0C</strong></u>: Make sure you can load your package. (You need the <code>bookdown</code>
 package to knit the homework, similar to HW1.)</p>
 <pre class="r"><code>library(bookdown)
+#&gt; Warning: package &#39;bookdown&#39; was built under R version 4.4.3
 library(tidyverse)
+#&gt; Warning: package &#39;tidyverse&#39; was built under R version 4.4.2
+#&gt; Warning: package &#39;ggplot2&#39; was built under R version 4.4.3
+#&gt; Warning: package &#39;readr&#39; was built under R version 4.4.2
+#&gt; Warning: package &#39;forcats&#39; was built under R version 4.4.2
+#&gt; Warning: package &#39;lubridate&#39; was built under R version 4.4.2
+#&gt; ── Attaching core tidyverse packages ────────────────────────────────────────────────────────────────────────────────── tidyverse 2.0.0 ──
+#&gt; ✔ dplyr     1.1.4     ✔ readr     2.1.5
+#&gt; ✔ forcats   1.0.0     ✔ stringr   1.5.1
+#&gt; ✔ ggplot2   3.5.2     ✔ tibble    3.2.1
+#&gt; ✔ lubridate 1.9.4     ✔ tidyr     1.3.1
+#&gt; ✔ purrr     1.0.2     
+#&gt; ── Conflicts ──────────────────────────────────────────────────────────────────────────────────────────────────── tidyverse_conflicts() ──
+#&gt; ✖ dplyr::filter() masks stats::filter()
+#&gt; ✖ dplyr::lag()    masks stats::lag()
+#&gt; ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors
 library(ggplot2)</code></pre>
 <p>(This might throw a warning about a “conflicted package.” You can ignore it.)</p>
 <p><u><strong>Question 0D</strong></u>: Double check the following things about your R package:</p>
@@ -1542,7 +1558,7 @@ statistics of countries over many years. The first dataset is the <code>gt</code
 can be loaded in the following code:</p>
 <pre class="r"><code>country_population &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/linnykos/561_s2025_public/main/HW2_files/country_population.csv&quot;)
 #&gt; Rows: 13545 Columns: 4
-#&gt; ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#&gt; ── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt; Delimiter: &quot;,&quot;
 #&gt; chr (2): iso3c, country
 #&gt; dbl (2): year, population
@@ -1576,7 +1592,7 @@ country_population
 can be loaded in the following code:</p>
 <pre class="r"><code>country_birth &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/linnykos/561_s2025_public/main/HW2_files/country_birth.csv&quot;)
 #&gt; Rows: 5486 Columns: 5
-#&gt; ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#&gt; ── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt; Delimiter: &quot;,&quot;
 #&gt; chr (1): iso3c
 #&gt; dbl (4): year, life_expect, birth_rate, neonat_mortal_rate
@@ -1727,7 +1743,7 @@ ggplot, mainly plotting scatterplots and faceting the plots.</mark></p>
 <p>For this question, we’ll be using a dataset about the penguins from the Palmer Archipelago from <a href="https://allisonhorst.github.io/palmerpenguins/reference/penguins.html">https://allisonhorst.github.io/palmerpenguins/reference/penguins.html</a>. We’ve processed it lightly for this homework.</p>
 <pre class="r"><code>penguins &lt;- readr::read_csv(&quot;https://raw.githubusercontent.com/linnykos/561_s2025_public/main/HW2_files/palmerpenguins.csv&quot;)
 #&gt; Rows: 333 Columns: 8
-#&gt; ── Column specification ───────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+#&gt; ── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────
 #&gt; Delimiter: &quot;,&quot;
 #&gt; chr (3): species, island, sex
 #&gt; dbl (5): bill_length_mm, bill_depth_mm, flipper_length_mm, body_mass_g, year
