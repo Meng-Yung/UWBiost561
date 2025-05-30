@@ -41,7 +41,7 @@ level_trial_list <- lapply(1:trials, function(trial){
       return(result)
     })
 
-    names(result_n_list) <- paste("n =", 5:10)
+    names(result_n_list) <- paste("n =", 6:10)
     return(result_n_list)
   })
 
