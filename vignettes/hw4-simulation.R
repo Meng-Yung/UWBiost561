@@ -31,12 +31,19 @@ level_trial_list <- lapply(1:trials, function(trial){
       print(adj_mat)
 
       # Compute the maximal partial clique for this n and imp_number
-      result <- UWBiost561::compute_maximal_partial_clique_master(
-        adj_mat = adj_mat,
-        alpha = 0.95,
-        number = imp_number,
-        time_limit = 30
-      )
+      result <- tryCatch({
+        # Attempt to run the function
+        UWBiost561::compute_maximal_partial_clique_master(
+          adj_mat = adj_mat,
+          alpha = 0.95,
+          number = imp_number,
+          time_limit = 30
+        )
+      }, error = function(e) {
+        # Handle the error: 'e' will contain the error message
+        cat("An error occurred:", e$message, "\n")
+        return(NULL)  # Return NULL
+      })
 
       return(result)
     })

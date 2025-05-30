@@ -391,7 +391,7 @@ Your plan should answer the following questions:
 
 - 1) How are you generating the random graphs for your analysis? What qualities do those random graphs have? (You can use your `generate_partial_clique()` function, and then you would describe what kind of graph your `generate_partial_clique()` makes.)
 
-- I will be using the `generate_partial_clique()` function, where it will generate random graphs with   clique_fraction = 0.5 and clique_edge_density = 0.95, with varying n.
+- I will be using the `generate_partial_clique()` function, where it will generate random graphs with   clique_fraction = 0.5 and clique_edge_density = 0.5, with varying n.
 
 - 2) How are you varying the random graphs across the different "levels" of your analysis? (For example, you can vary `n`, `clique_fraction`, `clique_edge_density`, and/or `alpha`. Your simulation study can focus on changing one or two values.)
 
