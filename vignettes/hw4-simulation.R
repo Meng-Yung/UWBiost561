@@ -63,7 +63,7 @@ date_of_run <- Sys.time()
 session_info <- devtools::session_info()
 
 save(level_trial_list,  # Save your results
-     alpha,              # Save the fixed alpha value
+     n_numbers,              # Save the n
      date_of_run,
      session_info,
      file = "~/demo_simulation_vary_n.RData")
