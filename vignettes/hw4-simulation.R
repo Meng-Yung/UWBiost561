@@ -18,12 +18,17 @@ level_trial_list <- lapply(1:trials, function(trial){
     # Loop over n values from 5 to 10 for each implementation
     result_n_list <- lapply(n_numbers, function(n){
       set.seed(trial)  # To freeze the randomness of adj_mat generation
+      print(paste("Generating with n =", n))
 
       # Generate the adjacency matrix with varying n (5 to 10)
       data <- UWBiost561::generate_partial_clique(n = n,
                                                   clique_fraction = 0.5,
                                                   clique_edge_density = 0.95)
       adj_mat <- data$adj_mat
+
+      print("generated adj_mat:")
+
+      print(adj_mat)
 
       # Compute the maximal partial clique for this n and imp_number
       result <- UWBiost561::compute_maximal_partial_clique_master(
