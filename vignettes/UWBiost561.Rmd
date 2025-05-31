@@ -1,6 +1,126 @@
 ---
 title: "UWBiost561"
-output: html_document
+output: 
+  bookdown::html_document2:
+    number_sections: false
+    toc: true
+    toc_float:
+      toc_collapsed: true
+    theme: united
+vignette: >
+  %\VignetteIndexEntry{UWBiost561}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
 ---
 
-This is the get started page.
+This is a demo vignette for our package. We will first demonstrate on how to generate a graph with a random partial clique via the `generate_partial_clique()` function, then we will demonstrate how to compute maximal partial cliques via one and also various implementations within this package.
+
+# Generating a graph
+
+The following lines of code runs the  `generate_partial_clique()` function with n = 10, clique_fraction = 0.5, and  clique_edge_density = 0.9. For further detailed documentation, please visit the reference page.
+
+```{r}
+library(UWBiost561)
+set.seed(0)
+simulation <- UWBiost561::generate_partial_clique(
+  n = 10,
+  clique_fraction = 0.5,
+  clique_edge_density = 0.9
+)
+adj_mat <- simulation$adj_mat
+adj_mat
+```
+
+
+# Calculating partial Clique
+
+Now that we generated a graph, we can compute maximal partial cliques via one and also various implementations within this package. The following lines of code will use the default implementation of `compute_maximal_partial_clique()`, which is created by the author directly.
+
+
+```{r}
+set.seed(10)
+res <- UWBiost561::compute_maximal_partial_clique(
+  adj_mat = adj_mat,
+  alpha = 0.9
+)
+res
+```
+
+# Using different implementations for calculating partial Clique
+
+There are also many other implements of `compute_maximal_partial_clique()` within this package, where they can be called directly via `compute_maximal_partial_clique1()` to `compute_maximal_partial_clique15()`, or be call through `compute_maximal_partial_clique_master()` and setting the `number` parameter to the desired implementation. For number 10 of the implementation, it will act exactly the same as the default `compute_maximal_partial_clique()`. We will demonstrate an example on why the master function is useful in the next section. Note: Be warned that not all implementations are the same, some might not return the correct maximal partial clique, and others might fail all together.
+
+```{r}
+set.seed(10)
+result <- UWBiost561::compute_maximal_partial_clique_master(
+  adj_mat = adj_mat, 
+  alpha = 0.95, 
+  number = 11, 
+  time_limit = 30
+)
+result
+```
+
+# Small example simulation testing
+
+Now, the following code will provide a small foundation on how to do simulation testing between all implementations of `compute_maximal_partial_clique()` via the help of master function. This is a very light demo that iterates between different values of n, and also implement error handling just in case for implementations that fails. Since this was a demo, we only ran through 1 trial with 1 n, thus this did not take much time to complete. Be aware that for larger n, the run time will start to increase exponentially, please carefully plan your simulation study and make sure it fits within the computational resources that you have acess to.
+
+```{r}
+rm(list=ls())
+set.seed(10)
+library(UWBiost561)
+
+imp_numbers <- 1:15
+trials <- 1
+n_numbers <- 6
+
+# Generate the simulation
+level_trial_list <- lapply(1:trials, function(trial){
+  print(paste("Working on Trial:", trial))
+  set.seed(trial)  # Freeze randomness for this trial
+
+  # Loop over the different implementations (imp_numbers)
+  trial_result_list <- lapply(imp_numbers, function(imp_number){
+    print(paste("Working on Implementation:", imp_number))
+
+    # Loop over n values from 5 to 10 for each implementation
+    result_n_list <- lapply(n_numbers, function(n){
+      set.seed(trial)  # To freeze the randomness of adj_mat generation
+      print(paste("Generating with n =", n))
+
+      # Generate the adjacency matrix with varying n (5 to 10)
+      data <- UWBiost561::generate_partial_clique(n = n,
+                                                  clique_fraction = 0.5,
+                                                  clique_edge_density = 0.95)
+      adj_mat <- data$adj_mat
+
+      # Compute the maximal partial clique for this n and imp_number
+      result <- tryCatch({
+        # Attempt to run the function
+        UWBiost561::compute_maximal_partial_clique_master(
+          adj_mat = adj_mat,
+          alpha = 0.95,
+          number = imp_number,
+          time_limit = 30
+        )
+      }, error = function(e) {
+        # Handle the error: 'e' will contain the error message
+        cat("An error occurred:", e$message, "\n")
+        return(NULL)  # Return NULL
+      })
+
+      return(result)
+    })
+
+    names(result_n_list) <- paste("n =", 10)
+    return(result_n_list)
+  })
+
+  names(trial_result_list) <- paste("Implementation:", imp_numbers)
+  return(trial_result_list)
+})
+
+names(level_trial_list) <- paste("Trial:", 1:trials)
+
+level_trial_list
+```
