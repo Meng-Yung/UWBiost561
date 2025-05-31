@@ -16,3 +16,4 @@ Suggests:
     ggplot2,
     testthat
 VignetteBuilder: knitr
+URL: https://meng-yung.github.io/UWBiost561/

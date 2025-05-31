@@ -1,0 +1,3 @@
+URL to GitHub:
+PkgDown website:
+Instructions to install the R package:Run devtools::install_github("Meng-Yung/UWBiost561")
