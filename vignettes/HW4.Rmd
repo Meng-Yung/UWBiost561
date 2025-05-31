@@ -130,7 +130,7 @@ test_that("Output format is correct", {
   adj[lower.tri(adj)] <- 1
   adj[upper.tri(adj)] <- t(adj)[upper.tri(adj)]
 
-  res <- compute_maximal_partial_clique3(adj, 0.6)
+  res <-  UWBiost561::compute_maximal_partial_clique3(adj, 0.6)
 
   expect_true(is.list(res))
   expect_true("clique_idx" %in% names(res))
@@ -145,7 +145,7 @@ test_that("Edge density is in the correct range", {
   adj[1, 2] <- adj[2, 1] <- 0
   diag(adj) <- 1
 
-  res <- compute_maximal_partial_clique3(adj, 0.7)
+  res <-  UWBiost561::compute_maximal_partial_clique3(adj, 0.7)
 
   expect_gte(res$edge_density, 0.7)
   expect_lte(res$edge_density, 1.0)
@@ -162,7 +162,7 @@ test_that("Function works on various valid inputs", {
       adj <- adj + t(adj)
       diag(adj) <- 1
 
-      res <- compute_maximal_partial_clique3(adj, alpha)
+      res <-  UWBiost561::compute_maximal_partial_clique3(adj, alpha)
       expect_true(is.numeric(res$clique_idx))
       expect_gte(res$edge_density, alpha)
     }
@@ -183,7 +183,7 @@ test_that("Function gives correct result on a crafted input", {
   # Add non-connected nodes
   adj[5, 6] <- adj[6, 5] <- 0
 
-  res <- compute_maximal_partial_clique3(adj, 1.0)
+  res <-  UWBiost561::compute_maximal_partial_clique3(adj, 1.0)
 
   expect_true(all(res$clique_idx %in% clique_nodes))
   expect_equal(res$edge_density, 1.0)
@@ -196,7 +196,7 @@ test_that("Function identifies clique from generated partial graph", {
   clique_frac <- 0.4
   clique_density <- 0.85
 
-  gen <- generate_partial_clique(n = n,
+  gen <-  UWBiost561::generate_partial_clique(n = n,
                                  clique_fraction = clique_frac,
                                  clique_edge_density = clique_density)
 
@@ -205,7 +205,7 @@ test_that("Function identifies clique from generated partial graph", {
   m <- round(n * clique_frac)
   original_clique_nodes <- rev_order[1:m]
 
-  result <- compute_maximal_partial_clique3(adj, alpha = clique_density)
+  result <-  UWBiost561::compute_maximal_partial_clique3(adj, alpha = clique_density)
 
   # Check that the result has high enough density
   expect_gte(result$edge_density, clique_density)
@@ -228,7 +228,7 @@ test_that("Output format is correct", {
   adj[lower.tri(adj)] <- 1
   adj[upper.tri(adj)] <- t(adj)[upper.tri(adj)]
 
-  res <- compute_maximal_partial_clique8(adj, 0.6)
+  res <-  UWBiost561::compute_maximal_partial_clique8(adj, 0.6)
 
   expect_true(is.list(res))
   expect_true("clique_idx" %in% names(res))
@@ -243,7 +243,7 @@ test_that("Edge density is in the correct range", {
   adj[1, 2] <- adj[2, 1] <- 0
   diag(adj) <- 1
 
-  res <- compute_maximal_partial_clique8(adj, 0.7)
+  res <-  UWBiost561::compute_maximal_partial_clique8(adj, 0.7)
 
   expect_gte(res$edge_density, 0.7)
   expect_lte(res$edge_density, 1.0)
@@ -260,7 +260,7 @@ test_that("Function works on various valid inputs", {
       adj <- adj + t(adj)
       diag(adj) <- 1
 
-      res <- compute_maximal_partial_clique8(adj, alpha)
+      res <-  UWBiost561::compute_maximal_partial_clique8(adj, alpha)
       expect_true(is.numeric(res$clique_idx))
       expect_gte(res$edge_density, alpha)
     }
@@ -281,7 +281,7 @@ test_that("Function gives correct result on a crafted input", {
   # Add non-connected nodes
   adj[5, 6] <- adj[6, 5] <- 0
 
-  res <- compute_maximal_partial_clique8(adj, 1.0)
+  res <-  UWBiost561::compute_maximal_partial_clique8(adj, 1.0)
 
   expect_true(all(res$clique_idx %in% clique_nodes))
   expect_equal(res$edge_density, 1.0)
@@ -294,7 +294,7 @@ test_that("Function identifies clique from generated partial graph", {
   clique_frac <- 0.4
   clique_density <- 0.85
 
-  gen <- generate_partial_clique(n = n,
+  gen <-  UWBiost561::generate_partial_clique(n = n,
                                  clique_fraction = clique_frac,
                                  clique_edge_density = clique_density)
 
@@ -303,7 +303,7 @@ test_that("Function identifies clique from generated partial graph", {
   m <- round(n * clique_frac)
   original_clique_nodes <- rev_order[1:m]
 
-  result <- compute_maximal_partial_clique8(adj, alpha = clique_density)
+  result <-  UWBiost561::compute_maximal_partial_clique8(adj, alpha = clique_density)
 
   # Check that the result has high enough density
   expect_gte(result$edge_density, clique_density)
@@ -395,7 +395,7 @@ Your plan should answer the following questions:
 
 - 2) How are you varying the random graphs across the different "levels" of your analysis? (For example, you can vary `n`, `clique_fraction`, `clique_edge_density`, and/or `alpha`. Your simulation study can focus on changing one or two values.)
 
-- I am choosing to vary the random graphs across n=5 to n=10, and doing 2 trials for each n.
+- I am choosing to vary the random graphs across n=6 to n=10, and doing 5 trials for each n.
 
 - 3) Which different methods are you using in your simulation study? (This question is moot for this homework since you'll be using all 15 implementations of `compute_maximal_partial_clique`, but please write this down for thoroughness.)
 
@@ -403,15 +403,15 @@ Your plan should answer the following questions:
 
 - 4) What do you hope to learn with your simulation study? Alternatively, what trends/patterns/results are you hoping to see?
 
-- I am hoping to be able to learn more holistically how each implementation performs (returns correct maximal partial clique) as n increases from 5 to 10.
+- I am hoping to be able to learn more holistically how each implementation performs (returns correct maximal partial clique) as n increases from 6 to 10.
 
 - 5) How many trials do you intend to run per "level"?
 
-- I intend to do 10 trials per "level" (n).
+- I intend to do5 trials per "level" (n).
 
 - 6) How much time do you estimate your simulation study will need at maximum? See Note 2 below.
 
-- I estimate that my simulation study will need at most 30 seconds * 15 implementations  = 7 1/2 minutes per trial, where 10 trials will take about at most an hour ish, as I am going through levels of n that is relatively small.
+- I estimate that my simulation study will need at most 30 seconds * 15 implementations * 5 trials * 5 levels  = 7 1/2 minutes per trial, where 10 trials will take about at most 3.125 hour. In practice, this is unlikely to be reached as I am going through levels of n that is relatively small.
 
 The only hard requirements I am imposing for this simulation study are:
 
@@ -466,6 +466,8 @@ Note: Your unit tests should be <u>**fast**</u> (i.e., take no more than a minut
 <span style="color: blue;">(There is nothing to report for this question. Your code will be in the `tests/testthat` folder, **not**
 in this R Markdown file.)</span>
 
+- The best way to make sure my code will work when running the complete simulation study is to make sure the parameters are within the range/bounds as expected, as the implementations will not work without proper input.
+
 <u>**Question 2E**</u>: Similar to what you did in HW3, please include a screenshot of your output after running `devtools::check()`. You should still have a `UWBiost561` package
 that passes all the checks and your unit tests.
 (As a guideline, one screenshot should show the first 20-or-so lines of your 
@@ -475,6 +477,14 @@ figures inside this R Markdown file.
 
 The intent of this question is to provide "evidence" that your `devtools::check()`
 went smoothly. You do not need to worry about what your screenshots show specifically.
+
+```{r}
+# Use knitr's include_graphics() to display a PNG
+knitr::include_graphics("HW4_check.png")
+```
+
+- As promisted from last homework, I swapped OS and fixed all bugs that existed before due to ARM incompaitbility. All output from `devtools::check()` looks clean.
+
 
 # Q3: Performing the simulation study
 
@@ -522,6 +532,14 @@ in this R Markdown file.)</span>
 
 Finally, include your plot in this R Markdown file. (I'm having you put your plot in your `vignettes` folder and push/pull your `UWBiost561` package because I'm assuming you knit this `HW4.Rmd` file locally on your laptop, but you need to somehow get your plot from Bayes onto your local laptop.)
 
+
+```{r}
+# Use knitr's include_graphics() to display a PNG
+knitr::include_graphics("HW4_simulation.png")
+```
+
+- Implementation 2 and 7 start to struggle as n increases, while 12 does better with higher n.
+
 # Q4: Describing your final project
 
 <mark>**Intent**: The intent of this question is to make sure you have a plan for the final project.</mark>
@@ -529,6 +547,8 @@ Finally, include your plot in this R Markdown file. (I'm having you put your plo
 I will release the final project specifications (again, which involve making a PkgDown website of any R package of your choosing of any scope) on Canvas. This will be released (at the latest) by May 25th.
 
 Please write (in one to five sentences) what you are thinking of doing for your final project. If your answer hasn't changed since HW3, you can copy-paste your answer from HW3 into this question for HW4.
+
+- My answer has not changed,as I don't have any previous R projects due to limited coding courses in R, I will use the default package for the final project.
 
 # Q5: Feedback (Optional)
 
@@ -540,4 +560,4 @@ Your feedback can help shape the course for the rest of this quarter and
 future years. Please be mindful and polite when providing feedback.
 You may leave this question blank.
 
-
+- Would be a good idea to add error handling into the course, especially since implementation 7 did not always work as expected (often times giving out of bound error, as it returns clique id that is higher than the max).

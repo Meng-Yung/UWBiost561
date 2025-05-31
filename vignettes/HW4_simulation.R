@@ -4,7 +4,7 @@ library(UWBiost561)
 
 imp_numbers <- 1:15
 trials <- 5
-n_numbers <- 6:10  # Fixed alpha
+n_numbers <- 6:10
 
 # Generate the simulation
 level_trial_list <- lapply(1:trials, function(trial){
